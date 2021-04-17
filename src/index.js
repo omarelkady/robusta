@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import './index.css';
 import axios from 'axios';
+import Geocode from "react-geocode";
 import "bootstrap/dist/css/bootstrap.css";
 
 class App extends Component {
@@ -46,7 +47,41 @@ class App extends Component {
         })
     })
     this.getCurrentDate();
+    this.getCityName();
+  }
 
+  //This should be the API_KEY for GeoCode, this is just to display how it could be done however,
+  //in this case it won't work as billing is required for the API to work, you will be able
+  //to see the error message in the console.
+  getCityName() {
+    Geocode.setApiKey("AIzaSyBQTJkuKvUP2y4uRp6kyzSxFm3IJpQMmuc");
+    Geocode.setLocationType("ROOFTOP");
+    Geocode.fromLatLng("48.8583701", "2.2922926").then(
+      (response) => {
+        const address = response.results[0].formatted_address;
+        let city, state, country;
+        for (let i = 0; i < response.results[0].address_components.length; i++) {
+          for (let j = 0; j < response.results[0].address_components[i].types.length; j++) {
+            switch (response.results[0].address_components[i].types[j]) {
+              case "locality":
+                city = response.results[0].address_components[i].long_name;
+                break;
+              case "administrative_area_level_1":
+                state = response.results[0].address_components[i].long_name;
+                break;
+              case "country":
+                country = response.results[0].address_components[i].long_name;
+                break;
+            }
+          }
+        }
+        console.log(city, state, country);
+        console.log(address);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   getCurrentDate() {
@@ -56,26 +91,30 @@ class App extends Component {
   }
 
   celciusToFehrenheit(celcius) {
-    return Math.round(celcius * 9/5 + 32)
+    return Math.round(celcius * 9 / 5 + 32)
   }
 
   fehrenheitToCelcius(fehrenheit) {
-    var conversion = Math.round(fehrenheit - 32)
-    return Math.round(conversion * 5/9)
+    var conversion = fehrenheit - 32
+    return Math.round(conversion * 5 / 9)
   }
 
-  changeTemp(){
-    if(this.state.switchToCelcius === false) {
-      this.setState({ temperature: this.fehrenheitToCelcius(this.state.temperature) })
-      this.setState({ apparentTemperature: this.fehrenheitToCelcius(this.state.apparentTemperature) })
-      this.setState({ dewPoint: this.fehrenheitToCelcius(this.state.dewPoint) })  
-      this.setState({ switchToCelcius: true })
+  changeTemp() {
+    if (this.state.switchToCelcius === false) {
+      this.setState({
+        temperature: this.fehrenheitToCelcius(this.state.temperature),
+        apparentTemperature: this.fehrenheitToCelcius(this.state.apparentTemperature),
+        dewPoint: this.fehrenheitToCelcius(this.state.dewPoint),
+        switchToCelcius: true
+      })
     }
-    if(this.state.switchToCelcius === true) {
-      this.setState({ temperature: this.celciusToFehrenheit(this.state.temperature) })
-      this.setState({ apparentTemperature: this.celciusToFehrenheit(this.state.apparentTemperature) })
-      this.setState({ dewPoint: this.celciusToFehrenheit(this.state.dewPoint) })
-      this.setState({ switchToCelcius: false })
+    if (this.state.switchToCelcius === true) {
+      this.setState({
+        temperature: this.celciusToFehrenheit(this.state.temperature),
+        apparentTemperature: this.celciusToFehrenheit(this.state.apparentTemperature),
+        dewPoint: this.celciusToFehrenheit(this.state.dewPoint),
+        switchToCelcius: false
+      })
     }
   }
 
@@ -125,23 +164,23 @@ class App extends Component {
 
             <div class="tab-content">
               <div class="sideways">
-              {this.state.hourlyForecast.map((hourly) => {
-                return <div>
-                  <p class="hourly-time">{hourly.time.toString().slice(0, 2)}:00</p>
-                  <p class="hourly-time">{Math.round(hourly.apparentTemperature)}°</p>
-                </div>
-              })}
+                {this.state.hourlyForecast.map((hourly) => {
+                  return <div>
+                    <p class="hourly-time">{hourly.time.toString().slice(0, 2)}:00</p>
+                    <p class="hourly-time">{Math.round(hourly.apparentTemperature)}°</p>
+                  </div>
+                })}
               </div>
             </div>
 
             <div class="tab-content">
               <div class="sideways">
-              {this.state.dailyForecast.map((daily) => {
-                return <div>
-                  <p class="hourly-time">{daily.time.toString().slice(0, 2)}:00</p>
-                  <p class="hourly-time">{Math.round(daily.apparentTemperatureHigh)}°</p>
-                </div>
-              })}
+                {this.state.dailyForecast.map((daily) => {
+                  return <div>
+                    <p class="hourly-time">{daily.time.toString().slice(0, 2)}:00</p>
+                    <p class="hourly-time">{Math.round(daily.apparentTemperatureHigh)}°</p>
+                  </div>
+                })}
               </div>
             </div>
           </div>
