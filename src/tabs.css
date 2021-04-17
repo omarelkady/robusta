@@ -1,0 +1,38 @@
+/* .tabs {
+    border-radius: 4px;
+  }
+  
+  .tab {
+    display: inline-block;
+    margin: 0 0 -1px;
+    padding: 15px 25px;
+    text-align: center;
+    color: #555;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  
+  .icon {
+    margin-right: 10px;
+  }
+  
+  .tab.active {
+    border-bottom: 3px solid white;
+  }
+  
+  .tab-content {
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    line-height: 1.6rem;
+    height:auto;
+    overflow-x:scroll;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .tab-group {
+      padding: 0;
+  }
+  li.tab {
+    color: white;
+  } */
