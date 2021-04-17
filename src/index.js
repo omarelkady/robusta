@@ -129,8 +129,8 @@ class App extends Component {
             <label class="switch">
               <input onClick={() => this.changeTemp()} value={this.state.switchToCelcius} type="checkbox" id="togBtn" />
               <div class="slider round">
-                <span class="on" value="F">F°</span>
-                <span class="off" value="C">C°</span>
+                <span class="on" value="C">C°</span>
+                <span class="off" value="F">F°</span>
               </div>
             </label>
           </div>

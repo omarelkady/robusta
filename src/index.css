@@ -39,9 +39,6 @@ code {
   font-weight: bold;
   font-size: 30px;
 }
-.dewpoint {
-  font-size: 25px;
-}
 .toggle {
   float: right;
 }
@@ -143,7 +140,6 @@ a:hover {
 	overflow-x: hidden; /* so we could easily hide the radio inputs */
 	margin: 32px 0;
 	padding-bottom: 16px;
-	border-bottom: 1px solid #ccc;
 }
 
 .tabbed [type="radio"] {
