@@ -182,7 +182,7 @@ a:hover {
 }
 
 .hourly-time{
-  padding: 0px 40px 0px 40px;
+  padding: 10px 40px 10px 41px;;
 }
 
 /* As we cannot replace the numbers with variables or calls to element properties, the number of this selector parts is our tab count limit */
@@ -201,4 +201,7 @@ a:hover {
 .tabbed [type="radio"]:nth-of-type(3):checked ~ .tab-content:nth-of-type(3),
 .tabbed [type="radio"]:nth-of-type(4):checked ~ .tab-content:nth-of-type(4) {
 	display: block;
+}
+.fa-sun-o:before{
+  font-size: 30px;
 }

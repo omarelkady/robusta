@@ -4,6 +4,7 @@ import './index.css';
 import axios from 'axios';
 import Geocode from "react-geocode";
 import "bootstrap/dist/css/bootstrap.css";
+import 'font-awesome/css/font-awesome.min.css';
 
 class App extends Component {
 
@@ -140,6 +141,7 @@ class App extends Component {
           <div class="col-8">
             <p class="city">New Cairo</p>
             <p class="date">{this.state.date}</p>
+            <i class="fa fa-sun-o sun" aria-hidden="true"></i>
           </div>
           <div class="col-4">
             <p class="temp">{this.state.temperature}°</p>
@@ -167,6 +169,7 @@ class App extends Component {
                 {this.state.hourlyForecast.map((hourly) => {
                   return <div>
                     <p class="hourly-time">{hourly.time.toString().slice(0, 2)}:00</p>
+                    <i class="fa fa-sun-o hourly-time" aria-hidden="true"></i>
                     <p class="hourly-time">{Math.round(hourly.apparentTemperature)}°</p>
                   </div>
                 })}
@@ -178,6 +181,7 @@ class App extends Component {
                 {this.state.dailyForecast.map((daily) => {
                   return <div>
                     <p class="hourly-time">{daily.time.toString().slice(0, 2)}:00</p>
+                    <i class="fa fa-sun-o hourly-time" aria-hidden="true"></i>
                     <p class="hourly-time">{Math.round(daily.apparentTemperatureHigh)}°</p>
                   </div>
                 })}
