@@ -5,6 +5,7 @@ import axios from 'axios';
 import Geocode from "react-geocode";
 import "bootstrap/dist/css/bootstrap.css";
 import 'font-awesome/css/font-awesome.min.css';
+import Header from './components/header'
 
 class App extends Component {
 
@@ -32,7 +33,6 @@ class App extends Component {
 
       axios.get('https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/' + API_KEY + '/' + latitude + ',' + longitude)
         .then((res) => {
-          console.log("res ", res)
           var hourlyForecast = res.data.hourly.data;
           var data = res.data.currently;
           var temperature = Math.round(data.temperature);
@@ -41,7 +41,6 @@ class App extends Component {
           var summary = data.summary;
           var dailyForecast = res.data.daily.data;
           this.setState({ hourlyForecast: hourlyForecast, dailyForecast: dailyForecast, temperature: temperature, apparentTemperature: apparentTemperature, dewPoint: dewPoint, summary: summary })
-          // this.getHourlyForecast();
         })
         .catch((error) => {
           console.log(error)
@@ -87,7 +86,7 @@ class App extends Component {
 
   getCurrentDate() {
     var today = new Date();
-    var date = today.getFullYear() + '-' + (today.toLocaleString('default', { month: 'long' })) + '-' + today.getDate();
+    var date = today.getFullYear() + ', ' + (today.toLocaleString('default', { month: 'long' })) + ', ' + today.getDate();
     this.setState({ date: date })
   }
 
@@ -101,6 +100,7 @@ class App extends Component {
   }
 
   changeTemp() {
+    console.log("maw ", this.state)
     if (this.state.switchToCelcius === false) {
       this.setState({
         temperature: this.fehrenheitToCelcius(this.state.temperature),
@@ -122,21 +122,10 @@ class App extends Component {
   render() {
     return (
       <div class="container">
-        <div class="header">
-          <div class="logo">
-            INSTAWEATHER
-          </div>
-          <div class="toggle">
-            <label class="switch">
-              <input onClick={() => this.changeTemp()} value={this.state.switchToCelcius} type="checkbox" id="togBtn" />
-              <div class="slider round">
-                <span class="on" value="C">C°</span>
-                <span class="off" value="F">F°</span>
-              </div>
-            </label>
-          </div>
-        </div>
-
+      <Header handler={this.changeTemp}
+          temperature={this.state.temperature}
+          apparentTemperature={this.state.apparentTemperature}
+          dewPoint={this.state.dewPoint} />
         <div class="row">
           <div class="col-8">
             <p class="city">New Cairo</p>
